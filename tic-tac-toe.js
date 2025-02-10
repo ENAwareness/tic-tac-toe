@@ -47,6 +47,34 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       }
     }
+
+    if (roundWon) {
+      status.textContent = `Player ${currentPlayer} wins!`;
+      gameActive = false;
+      return;
+    }
+
+    if (!gameState.includes("")) {
+      status.textContent = "Game ended in draw!";
+      gameActive = false;
+      return;
+    }
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    status.textContent = `Next player: ${currentPlayer}`;
   }
 
+  function resetGame() {
+    currentPlayer = "X";
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    gameActive = true;
+    status.textContent = "Next player: X";
+    document.querySelectorAll(".cell").forEach((cell) => {
+      cell.textContent = "";
+    });
+  }
+
+  resetBtn.addEventListener("click", resetGame);
+
+  createBoard();
 });
